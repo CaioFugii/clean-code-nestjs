@@ -10,7 +10,7 @@ import { DeliveryMethodsController } from './delivery-methods.controller';
   imports: [
     MongooseModule.forFeature([
       {
-        name: 'deliveryMethod',
+        name: DeliveryMethodMongoDB.DeliveryMethodModel.name,
         schema: DeliveryMethodMongoDB.DeliveryMethodSchema,
       },
     ]),
@@ -26,7 +26,7 @@ import { DeliveryMethodsController } from './delivery-methods.controller';
           deliveryMethodModel,
         );
       },
-      inject: [getModelToken('deliveryMethod')],
+      inject: [getModelToken(DeliveryMethodMongoDB.DeliveryMethodModel.name)],
     },
     {
       provide: CreateDeliveryMethodUseCase.UseCase,

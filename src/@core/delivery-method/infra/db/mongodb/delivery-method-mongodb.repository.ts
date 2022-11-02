@@ -27,7 +27,7 @@ export namespace DeliveryMethodMongoDB {
 
   export class DeliveryMethodModel extends Model<DeliveryMethodProps> {}
 
-  export type DeliveryMethodDocument = DeliveryMethodModel & Document;
+  type DeliveryMethodDocument = DeliveryMethodModel & Document;
 
   export class DeliveryMethodRepository
     implements DeliveryMethodRepositoryContract.Repository
