@@ -1,6 +1,6 @@
 import { DeliveryMethod } from '../../../domain/entities/delivery-method';
 import { DeliveryMethodRepository } from '../../../domain/repository/delivery-method.repository';
-import { DeliveryMethodInMemoryRepository } from '../../../infra/repository/in-memory/delivery-method-in-memory.repository';
+import { DeliveryMethodInMemoryRepository } from '../../../infra/db/repository/in-memory/delivery-method-in-memory.repository';
 import ListDeliveryMethodsUseCase from '../list-delivery-methods.use-case';
 
 describe('ListDeliveryMethodsUseCase Unit Tests', () => {

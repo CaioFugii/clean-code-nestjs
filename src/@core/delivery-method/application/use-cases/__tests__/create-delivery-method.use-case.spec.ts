@@ -1,4 +1,4 @@
-import { DeliveryMethodInMemoryRepository } from '../../../infra/repository/in-memory/delivery-method-in-memory.repository';
+import { DeliveryMethodInMemoryRepository } from '../../../infra/db/repository/in-memory/delivery-method-in-memory.repository';
 import CreateDeliveryMethodUseCase from '../create-delivery-method.use-case';
 
 describe('CreateDeliveryMethodUseCase Unit Tests', () => {

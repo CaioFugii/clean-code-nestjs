@@ -4,7 +4,7 @@ import {
 } from '../../../commons/application/dto/pagination-output';
 import { SearchInputDto } from '../../../commons/application/dto/search-input';
 import DefaultUseCase from '../../../commons/application/use-case';
-import { DeliveryMethodRepository } from '../../domain/repository/delivery-method.repository';
+import { DeliveryMethodRepositoryContract } from '../../domain/repository/delivery-method.repository';
 import {
   DeliveryMethodOutput,
   DeliveryMethodOutputMapper,
@@ -17,17 +17,17 @@ export namespace ListDeliveryMethodsUseCase {
 
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(
-      private deliveryMethodRepo: DeliveryMethodRepository.Repository,
+      private deliveryMethodRepo: DeliveryMethodRepositoryContract.Repository,
     ) {}
 
     async execute(input: Input): Promise<Output> {
-      const params = new DeliveryMethodRepository.SearchParams(input);
+      const params = new DeliveryMethodRepositoryContract.SearchParams(input);
       const searchResult = await this.deliveryMethodRepo.search(params);
       return this.toOutput(searchResult);
     }
 
     private toOutput(
-      searchResult: DeliveryMethodRepository.SearchResult,
+      searchResult: DeliveryMethodRepositoryContract.SearchResult,
     ): Output {
       const items = searchResult.items.map(deliveryMethod =>
         DeliveryMethodOutputMapper.toOutput(deliveryMethod),

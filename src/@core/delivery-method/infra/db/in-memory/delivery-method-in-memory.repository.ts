@@ -1,16 +1,16 @@
 import { InMemorySearchableRepository } from '../../../../commons/repository/in-memory.repository';
 import { DeliveryMethod } from '../../../domain/entities/delivery-method';
-import { DeliveryMethodRepository } from '../../../domain/repository/delivery-method.repository';
+import { DeliveryMethodRepositoryContract } from '../../../domain/repository/delivery-method.repository';
 
 export class DeliveryMethodInMemoryRepository
   extends InMemorySearchableRepository<DeliveryMethod>
-  implements DeliveryMethodRepository.Repository
+  implements DeliveryMethodRepositoryContract.Repository
 {
   sortableFields: string[] = ['name', 'created_at'];
 
   protected async applyFilter(
     items: DeliveryMethod[],
-    filter?: DeliveryMethodRepository.Filter,
+    filter?: DeliveryMethodRepositoryContract.Filter,
   ): Promise<DeliveryMethod[]> {
     if (!filter) {
       return items;

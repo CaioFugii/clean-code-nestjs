@@ -1,6 +1,6 @@
 import DefaultUseCase from '../../../commons/application/use-case';
 import { DeliveryMethod } from '../../domain/entities/delivery-method';
-import { DeliveryMethodRepository } from '../../domain/repository/delivery-method.repository';
+import { DeliveryMethodRepositoryContract } from '../../domain/repository/delivery-method.repository';
 import {
   DeliveryMethodOutput,
   DeliveryMethodOutputMapper,
@@ -17,7 +17,7 @@ export namespace CreateDeliveryMethodUseCase {
 
   export class UseCase implements DefaultUseCase<Input, Output> {
     constructor(
-      private deliveryMethodRepo: DeliveryMethodRepository.Repository,
+      private deliveryMethodRepo: DeliveryMethodRepositoryContract.Repository,
     ) {}
 
     async execute(input: Input): Promise<Output> {

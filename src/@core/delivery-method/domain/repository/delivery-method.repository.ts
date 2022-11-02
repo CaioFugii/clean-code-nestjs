@@ -5,7 +5,7 @@ import {
 } from '../../../commons/repository/repository-contracts';
 import { DeliveryMethod } from '../entities/delivery-method';
 
-export namespace DeliveryMethodRepository {
+export namespace DeliveryMethodRepositoryContract {
   export type Filter = string;
 
   export class SearchParams extends DefaultSearchParams<Filter> {}
@@ -23,3 +23,5 @@ export namespace DeliveryMethodRepository {
       SearchResult
     > {}
 }
+
+export default DeliveryMethodRepositoryContract;

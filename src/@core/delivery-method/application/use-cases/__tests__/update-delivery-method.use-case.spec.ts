@@ -1,6 +1,6 @@
 import NotFoundError from '../../../../commons/errors/not-found.error';
 import { DeliveryMethod } from '../../../domain/entities/delivery-method';
-import { DeliveryMethodInMemoryRepository } from '../../../infra/repository/in-memory/delivery-method-in-memory.repository';
+import { DeliveryMethodInMemoryRepository } from '../../../infra/db/repository/in-memory/delivery-method-in-memory.repository';
 import UpdateDeliveryMethodUseCase from '../update-delivery-method.use-case';
 
 describe('UpdateDeliveryMethodUseCase Unit Tests', () => {

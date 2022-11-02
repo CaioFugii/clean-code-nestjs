@@ -1,5 +1,5 @@
 import UseCase from '../../../commons/application/use-case';
-import { DeliveryMethodRepository } from '../../domain/repository/delivery-method.repository';
+import { DeliveryMethodRepositoryContract } from '../../domain/repository/delivery-method.repository';
 import {
   DeliveryMethodOutput,
   DeliveryMethodOutputMapper,
@@ -15,7 +15,7 @@ export default class GetDeliveryMethodUseCase
   implements UseCase<Input, Output>
 {
   constructor(
-    private deliveryMethodRepo: DeliveryMethodRepository.Repository,
+    private deliveryMethodRepo: DeliveryMethodRepositoryContract.Repository,
   ) {}
 
   async execute(input: Input): Promise<Output> {
