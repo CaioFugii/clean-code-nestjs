@@ -27,6 +27,8 @@ export namespace DeliveryMethodMongoDB {
 
   export class DeliveryMethodModel extends Model<DeliveryMethodProps> {}
 
+  export type DeliveryMethodDocument = DeliveryMethodModel & Document;
+
   export class DeliveryMethodRepository
     implements DeliveryMethodRepositoryContract.Repository
   {
@@ -61,7 +63,7 @@ export namespace DeliveryMethodMongoDB {
   }
 
   export class DeliveryMethodModelMapper {
-    static toEntity(document: Document) {
+    static toEntity(document: DeliveryMethodDocument) {
       const { id, ...otherData } = document.toObject();
       try {
         //@ts-ignore-error
