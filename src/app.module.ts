@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { DeliveryMethodsModule } from './@nest/delivery-methods/delivery-methods.module';
+import { DeliveryMethodsModule } from './@nestjs/delivery-methods/delivery-methods.module';
 
 @Module({
   imports: [

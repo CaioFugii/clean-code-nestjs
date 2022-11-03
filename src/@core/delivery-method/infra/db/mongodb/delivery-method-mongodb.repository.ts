@@ -34,46 +34,78 @@ export namespace DeliveryMethodMongoDB {
   {
     sortableFields: string[] = ['name', 'created_at'];
     constructor(private deliveryMethodModel: typeof DeliveryMethodModel) {}
-
-    async insert(entity: DeliveryMethod): Promise<void> {
-      await this.deliveryMethodModel.create(entity.toJSON());
-    }
-
-    async find(): Promise<DeliveryMethod[]> {
-      throw new Error('Method not implemented.');
-    }
-
-    findById(id: string | UniqueEntityId): Promise<DeliveryMethod> {
-      throw new Error('Method not implemented.');
-    }
-
-    update(entity: DeliveryMethod): Promise<void> {
-      throw new Error('Method not implemented.');
-    }
-
     delete(id: string | UniqueEntityId): Promise<void> {
       throw new Error('Method not implemented.');
     }
 
-    search(
+    async insert(entity: DeliveryMethod): Promise<DeliveryMethod> {
+      const deliveryMethodCreated = await this.deliveryMethodModel.create(
+        entity.toJSON(),
+      );
+      return DeliveryMethodModelMapper.toEntity(deliveryMethodCreated);
+    }
+
+    async find(): Promise<DeliveryMethod[]> {
+      const documents = await this.deliveryMethodModel.find();
+      return documents.map(m => DeliveryMethodModelMapper.toEntity(m));
+    }
+
+    async findById(id: string | UniqueEntityId): Promise<DeliveryMethod> {
+      const document = await this.deliveryMethodModel.findOne({ id });
+      return DeliveryMethodModelMapper.toEntity(document);
+    }
+
+    async update(entity: DeliveryMethod): Promise<DeliveryMethod> {
+      const document = await this.deliveryMethodModel.findOneAndUpdate(
+        { id: entity.id },
+        entity.toJSON(),
+        { new: true },
+      );
+
+      return DeliveryMethodModelMapper.toEntity(document);
+    }
+
+    async search(
       props: DeliveryMethodRepositoryContract.SearchParams,
     ): Promise<DeliveryMethodRepositoryContract.SearchResult> {
-      throw new Error('Method not implemented.');
+      const filter: Record<string, any> = {};
+      const offset = (props.page - 1) * props.per_page;
+      const limit = props.per_page;
+
+      if (props.filter) {
+        filter['name'] = { $regex: `${props.filter}.*`, $options: 'i' };
+      }
+
+      const count = await this.deliveryMethodModel.countDocuments(filter);
+
+      const documents = await this.deliveryMethodModel
+        .find(filter)
+        .limit(limit)
+        .skip(offset)
+        .sort({ [props.sort]: props.sort_direction === 'asc' ? 1 : -1 });
+
+      return new DeliveryMethodRepositoryContract.SearchResult({
+        items: documents.map(document =>
+          DeliveryMethodModelMapper.toEntity(document),
+        ),
+        current_page: props.page,
+        per_page: props.per_page,
+        total: count,
+        filter: props.filter,
+        sort: props.sort,
+        sort_direction: props.sort_direction,
+      });
     }
   }
 
   export class DeliveryMethodModelMapper {
     static toEntity(document: DeliveryMethodDocument) {
-      const { id, ...otherData } = document.toObject();
       try {
+        const { id, ...otherData } = document.toJSON();
         //@ts-ignore-error
         return new DeliveryMethod(otherData, new UniqueEntityId(id));
-      } catch (e) {
-        // if (e instanceof EntityValidationError) {
-        //   throw new LoadEntityError(e.error);
-        // }
-
-        throw e;
+      } catch (error) {
+        console.log(error);
       }
     }
   }

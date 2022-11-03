@@ -1,19 +1,19 @@
 import { DeliveryMethod } from '../../../domain/entities/delivery-method';
-import { DeliveryMethodRepository } from '../../../domain/repository/delivery-method.repository';
-import { DeliveryMethodInMemoryRepository } from '../../../infra/db/repository/in-memory/delivery-method-in-memory.repository';
-import ListDeliveryMethodsUseCase from '../list-delivery-methods.use-case';
+import DeliveryMethodRepositoryContract from '../../../domain/repository/delivery-method.repository';
+import { DeliveryMethodInMemoryRepository } from '../../../infra/db/in-memory/delivery-method-in-memory.repository';
+import { ListDeliveryMethodsUseCase } from '../list-delivery-methods.use-case';
 
 describe('ListDeliveryMethodsUseCase Unit Tests', () => {
-  let useCase: ListDeliveryMethodsUseCase;
+  let useCase: ListDeliveryMethodsUseCase.UseCase;
   let repository: DeliveryMethodInMemoryRepository;
 
   beforeEach(() => {
     repository = new DeliveryMethodInMemoryRepository();
-    useCase = new ListDeliveryMethodsUseCase(repository);
+    useCase = new ListDeliveryMethodsUseCase.UseCase(repository);
   });
 
   test('toOutput method', () => {
-    let result = new DeliveryMethodRepository.SearchResult({
+    let result = new DeliveryMethodRepositoryContract.SearchResult({
       items: [],
       total: 1,
       current_page: 1,
@@ -33,7 +33,7 @@ describe('ListDeliveryMethodsUseCase Unit Tests', () => {
     });
 
     const entity = new DeliveryMethod({ name: 'EXPRESS' });
-    result = new DeliveryMethodRepository.SearchResult({
+    result = new DeliveryMethodRepositoryContract.SearchResult({
       items: [entity],
       total: 1,
       current_page: 1,

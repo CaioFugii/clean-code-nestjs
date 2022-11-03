@@ -1,14 +1,14 @@
 import { DeliveryMethod } from '../../../domain/entities/delivery-method';
-import { DeliveryMethodInMemoryRepository } from '../../../infra/db/repository/in-memory/delivery-method-in-memory.repository';
-import GetDeliveryMethodUseCase from '../get-delivery-method.use-case';
+import { DeliveryMethodInMemoryRepository } from '../../../infra/db/in-memory/delivery-method-in-memory.repository';
+import { GetDeliveryMethodUseCase } from '../get-delivery-method.use-case';
 
 describe('GetDeliveryMethodUseCase Unit Tests', () => {
-  let useCase: GetDeliveryMethodUseCase;
+  let useCase: GetDeliveryMethodUseCase.UseCase;
   let repository: DeliveryMethodInMemoryRepository;
 
   beforeEach(() => {
     repository = new DeliveryMethodInMemoryRepository();
-    useCase = new GetDeliveryMethodUseCase(repository);
+    useCase = new GetDeliveryMethodUseCase.UseCase(repository);
   });
 
   it('should throw an error, when pass a fake ID', async () => {

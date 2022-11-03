@@ -2,10 +2,10 @@ import Entity from '../domain/entities/entity';
 import UniqueEntityId from '../domain/entities/unique-entity-id';
 
 export interface RepositoryInterface<E extends Entity> {
-  insert(entity: E): Promise<void>;
+  insert(entity: E): Promise<E>;
   findById(id: string | UniqueEntityId): Promise<E>;
   find(): Promise<E[]>;
-  update(entity: E): Promise<void>;
+  update(entity: E): Promise<E>;
   delete(id: string | UniqueEntityId): Promise<void>;
 }
 

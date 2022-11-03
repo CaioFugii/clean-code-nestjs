@@ -13,8 +13,9 @@ export abstract class InMemoryRepository<E extends Entity>
 {
   items: E[] = [];
 
-  async insert(entity: E): Promise<void> {
+  async insert(entity: E): Promise<E> {
     this.items.push(entity);
+    return entity;
   }
   async findById(id: string | UniqueEntityId): Promise<E> {
     const _id = `${id}`;
@@ -26,10 +27,11 @@ export abstract class InMemoryRepository<E extends Entity>
     return this.items;
   }
 
-  async update(entity: E): Promise<void> {
+  async update(entity: E): Promise<E> {
     await this._get(entity.id);
     const index = this.items.findIndex(i => i.id === entity.id);
     this.items[index] = entity;
+    return entity;
   }
 
   async delete(id: string | UniqueEntityId): Promise<void> {

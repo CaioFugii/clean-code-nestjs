@@ -1,13 +1,13 @@
-import { DeliveryMethodInMemoryRepository } from '../../../infra/db/repository/in-memory/delivery-method-in-memory.repository';
-import CreateDeliveryMethodUseCase from '../create-delivery-method.use-case';
+import { DeliveryMethodInMemoryRepository } from '../../../infra/db/in-memory/delivery-method-in-memory.repository';
+import { CreateDeliveryMethodUseCase } from '../create-delivery-method.use-case';
 
 describe('CreateDeliveryMethodUseCase Unit Tests', () => {
-  let useCase: CreateDeliveryMethodUseCase;
+  let useCase: CreateDeliveryMethodUseCase.UseCase;
   let repository: DeliveryMethodInMemoryRepository;
 
   beforeEach(() => {
     repository = new DeliveryMethodInMemoryRepository();
-    useCase = new CreateDeliveryMethodUseCase(repository);
+    useCase = new CreateDeliveryMethodUseCase.UseCase(repository);
   });
 
   it('should create a delivery method', async () => {
